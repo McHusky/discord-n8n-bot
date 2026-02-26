@@ -86,9 +86,9 @@ Under **Bot → Token → Reset Token → Copy**
 
 ---
 
-# 2️⃣ Install on Unraid
+# 2️⃣ Installing
 
-### 📦 Using the Template (Recommended)
+### 📦 Using the Template in Unraid (Recommended)
 
 Run this command in the Unraid terminal:
 
@@ -109,6 +109,40 @@ Then in Unraid:
 | RALLOWED_CHANNEL_ID              | Optional: limit bot to a channel          |
 
 4. Click **Apply** and start the container
+
+### 🛠 Alternative Installation (Manual CLI)
+
+If you prefer not to use the Unraid template, you can run the container manually.
+
+### Pull the image
+
+```bash
+docker pull ghcr.io/mchusky/discord-n8n-bot:latest
+```
+Run the container
+```
+docker run -d \
+  --name discord-n8n-bot \
+  -e DISCORD_TOKEN="YOUR_DISCORD_TOKEN" \
+  -e N8N_WEBHOOK_URL="YOUR_WEBHOOK_URL" \
+  -e REQUIRE_MENTION="true" \
+  -e ALLOWED_CHANNEL_ID="YOUR_CHANNEL_ID" \
+  --restart unless-stopped \
+  ghcr.io/mchusky/discord-n8n-bot:latest
+```
+**Optional: Restrict to specific channel**
+
+If you want the bot to respond in all channels, remove the ALLOWED_CHANNEL_ID variable.
+
+**Check logs**
+```bash
+docker logs -f discord-n8n-bot
+```
+
+You should see:
+```bash
+Logged in as <your bot name>
+```
 
 # 3️⃣ Configure n8n (with AI)
 
@@ -145,7 +179,7 @@ docker logs -f discord-n8n-bot
 Exec into the container:
 ```bash
 docker exec -it discord-n8n-bot sh
-wget -qO- http://<server_address>:5678
+wget -qO- http://server:5678
 ```
 
 # 🛡 Security Notes
