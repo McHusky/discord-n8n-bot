@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>discord-n8n-bot</Name>
+  <Repository>ghcr.io/mchusky/discord-n8n-bot:latest</Repository>
+  <Registry/>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support/>
+  <Project/>
+  <ReadMe/>
+  <Overview>Discord Gateway-based relay bot for Unraid.&#13;
+&#13;
+This container maintains a persistent WebSocket connection to Discord and forwards incoming messages to a local n8n webhook endpoint. Ideal for integrating Discord with AI workflows (e.g., Ollama) in a secure, self-hosted setup.&#13;
+&#13;
+No inbound ports required.</Overview>
+  <Category>Network:Other</Category>
+  <WebUI/>
+  <TemplateURL/>
+  <Icon>https://raw.githubusercontent.com/mchusky/discord-n8n-bot/main/icon.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>1. A Discord Bot Token (created via https://discord.com/developers/applications)&#13;
+2. MESSAGE CONTENT INTENT enabled in the Discord Developer Portal&#13;
+3. The bot token must be entered in the DISCORD_TOKEN variable&#13;
+4. The bot must be invited to your server&#13;
+5. An n8n webhook URL must be configured&#13;
+&#13;
+No ports need to be exposed to the internet.&#13;
+&#13;
+Security Notice: Keep your Discord Bot Token private and never commit it to public repositories.</Requires>
+  <Config Name="DISCORD_TOKEN" Target="DISCORD_TOKEN" Default="" Mode="" Description="" Type="Variable" Display="always" Required="true" Mask="true"></Config>
+  <Config Name="N8N_WEBHOOK_URL" Target="N8N_WEBHOOK_URL" Default="" Mode="" Description="Full URL to your n8n webhook endpoint" Type="Variable" Display="always" Required="true" Mask="false"></Config>
+  <Config Name="REQUIRE_MENTION" Target="REQUIRE_MENTION" Default="true" Mode="" Description="Should the bot be explicitly mentioned? (true or false)" Type="Variable" Display="always" Required="true" Mask="false">true</Config>
+  <Config Name="ALLOWED_CHANNEL_ID" Target="ALLOWED_CHANNEL_ID" Default="" Mode="" Description="Leave blank if you want the bot to respond in all channels" Type="Variable" Display="always" Required="false" Mask="false"></Config>
+  <TailscaleStateDir/>
+</Container>
