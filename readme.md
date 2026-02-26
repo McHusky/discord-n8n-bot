@@ -145,7 +145,7 @@ docker logs -f discord-n8n-bot
 Exec into the container:
 ```bash
 docker exec -it discord-n8n-bot sh
-wget -qO- http://server:5678
+wget -qO- http://<server_address>:5678
 ```
 
 # 🛡 Security Notes
