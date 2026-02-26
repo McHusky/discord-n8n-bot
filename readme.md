@@ -88,7 +88,7 @@ Under **Bot → Token → Reset Token → Copy**
 
 # 2️⃣ Install on Unraid
 
-## Using the Template (Recommended)
+### 📦 Using the Template (Recommended)
 
 Run this command in the Unraid terminal:
 
@@ -96,24 +96,59 @@ Run this command in the Unraid terminal:
 wget -O /boot/config/plugins/dockerMan/templates-user/discord-n8n-bot.xml \
 https://raw.githubusercontent.com/McHusky/discord-n8n-bot/unraid-templates/discord-n8n-bot.xml
 ```
-Then: **Docker → Add Container**
+Then in Unraid: 
+1. Go to **Docker → Add Container**
+2. Select the **discord-n8n-bot** template
+3. Fill in the variables:
 
-Select template: **discord-n8n-bot**
+| Variable                         | Description                               |
+| -------------------------------- |:-----------------------------------------:|
+| DISCORD_TOKEN                    | Your Discord Bot Token                    |
+| N8N_WEBHOOK_URL                  | Full n8n webhook URL                      |
+| REQUIRE_MENTION (`true`/`false`) | `true` = bot responds only when mentioned |
+| RALLOWED_CHANNEL_ID              | Optional: limit bot to a channel          |
 
-Fill in the variables:
+4. Click **Apply** and start the container
 
-| Variable                     | Description                             |
-| ---------------------------- |:---------------------------------------:|
-| DISCORD_TOKEN                | Your Discord Bot Token                  |
-| N8N_WEBHOOK_URL              | Full n8n webhook URL                    |
-| REQUIRE_MENTION (true/false) | true = bot responds only when mentioned |
-| RALLOWED_CHANNEL_ID          | Optional channel restriction            |
+# 3️⃣ Configure n8n (with AI)
 
-Start the container.
+1. Open your n8n instance
+2. Create a new workflow
+3. Add a Webhook Trigger node
+    * HTTP Method: **POST**
+    * Path: such as `/discord-in`
+4. Connect an LLM of your choice, e.g. Ollama on the same instance
+    * Use this expression for message content:<br>`{{$json.body.message}}`
+5. Use `Discord → Send a message` to answer using bot token or similar
 
 ---
 
-# Security Notes
+# 🔄 Updating
+
+If installed from GHCR:
+```bash
+docker pull ghcr.io/mchusky/discord-n8n-bot:latest
+docker restart discord-n8n-bot
+```
+
+# 🐞 Troubleshooting
+#### Bot is unresponsive
+
+* Check that MESSAGE CONTENT INTENT is enabled
+* Verify bot permissions in Discord
+* See logs:
+```bash
+docker logs -f discord-n8n-bot
+```
+#### n8n unreachable
+
+Exec into the container:
+```bash
+docker exec -it discord-n8n-bot sh
+wget -qO- http://server:5678
+```
+
+# 🛡 Security Notes
 
 - Never commit your Discord Bot Token.
 - Do not expose n8n publicly unless secured.
@@ -121,6 +156,6 @@ Start the container.
 
 ---
 
-# License
+# 📄 License
 
 MIT
