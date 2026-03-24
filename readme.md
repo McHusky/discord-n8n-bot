@@ -94,7 +94,7 @@ Run this command in the Unraid terminal:
 
 ```bash
 wget -O /boot/config/plugins/dockerMan/templates-user/discord-n8n-bot.xml \
-https://raw.githubusercontent.com/McHusky/discord-n8n-bot/unraid-templates/discord-n8n-bot.xml
+https://raw.githubusercontent.com/McHusky/discord-n8n-bot/main/unraid-templates/discord-n8n-bot.xml
 ```
 Then in Unraid: 
 1. Go to **Docker → Add Container**
